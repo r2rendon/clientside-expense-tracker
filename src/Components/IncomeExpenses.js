@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "../Context/GlobalState";
 
 export const IncomeExpenses = () => {
-  const income = 120;
-  const expense = 12;
+  const { transactions } = useContext(GlobalContext);
+
+  const totalAmount = transactions.map((transaction) => transaction.amount);
+  const income = totalAmount
+    .filter((item) => item > 0)
+    .reduce((acc, item) => (acc += item), 0)
+    .toFixed(2);
+
+  const expense = (
+    totalAmount
+      .filter((item) => item < 0)
+      .reduce((acc, item) => (acc += item), 0) * -1
+  ).toFixed(2);
+
   return (
     <div
       className="card mb-3 shadow p-3 mb-5 bg-white rounded"
