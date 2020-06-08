@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { GlobalProvider, GlobalContext } from "./Context/GlobalState";
 import Dashboard from "./Components/Dashboard";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 import { Login } from "./Components/Login/Login";
 import { PrivateRoute } from "./PrivateRoute";
