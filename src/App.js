@@ -1,26 +1,22 @@
-import React from "react";
-import "./App.css";
-import { Navbar } from "./Components/Navbar";
-import { Balance } from "./Components/Balance";
-import { IncomeExpenses } from "./Components/IncomeExpenses";
-import { TransactionList } from "./Components/TransactionList";
-import { GlobalProvider } from "./Context/GlobalState";
-import { AddTransaction } from "./Components/AddTransaction";
+import React, { useEffect, useContext } from "react";
+import { GlobalProvider, GlobalContext } from "./Context/GlobalState";
+import Dashboard from "./Components/Dashboard";
 
-function App() {
+import { Login } from "./Components/Login/Login";
+import { PrivateRoute } from "./PrivateRoute";
+
+//Router
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+export const App = () => {
   return (
     <GlobalProvider>
-      <div>
-        <Navbar />
-        <div className="container" style={{ marginTop: 40 }}>
-          <Balance />
-          <IncomeExpenses />
-          <TransactionList />
-          <AddTransaction />
-        </div>
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+        </Switch>
+      </Router>
     </GlobalProvider>
   );
-}
-
-export default App;
+};
