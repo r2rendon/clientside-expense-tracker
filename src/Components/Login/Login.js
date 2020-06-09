@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import "./Login.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt from "jsonwebtoken";
 
 export const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    document.body.classList.add("loginBckg");
+  }, []);
 
   const hSubmit = async (e) => {
     e.preventDefault();

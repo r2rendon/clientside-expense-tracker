@@ -1,6 +1,12 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
-export const Navbar = () => {
+const Navbar = (props) => {
+  const signOut = () => {
+    localStorage.removeItem("currentUser");
+    props.history.push("/");
+  };
+
   return (
     <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand mb-0 h1" href="#">
@@ -29,8 +35,15 @@ export const Navbar = () => {
               Profile
             </a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link" onClick={signOut}>
+              Sign Out
+            </a>
+          </li>
         </ul>
       </div>
     </nav>
   );
 };
+
+export default withRouter(Navbar);
