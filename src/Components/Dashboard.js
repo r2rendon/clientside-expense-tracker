@@ -7,6 +7,7 @@ import { IncomeExpenses } from "./IncomeExpenses";
 import { TransactionList } from "./TransactionList";
 //import { GlobalProvider } from "../Context/GlobalState";
 import { AddTransaction } from "./AddTransaction";
+import { GlobalProvider } from "../Context/GlobalState";
 
 function Dashboard() {
   useEffect(() => {
@@ -14,7 +15,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <GlobalProvider>
       <Navbar />
       <div className="container" style={{ marginTop: 40 }}>
         <Balance />
@@ -22,7 +23,7 @@ function Dashboard() {
         <TransactionList />
         <AddTransaction />
       </div>
-    </div>
+    </GlobalProvider>
   );
 }
 

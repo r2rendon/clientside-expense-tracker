@@ -12,13 +12,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 export const App = () => {
   return (
-    <GlobalProvider>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <PrivateRoute path="/dashboard" component={Dashboard} />
-        </Switch>
-      </Router>
-    </GlobalProvider>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+      </Switch>
+    </Router>
   );
 };
