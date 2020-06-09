@@ -14,11 +14,19 @@ export const Login = (props) => {
     e.preventDefault();
     const user = await axios(`http://localhost:5000/user/${username}`);
     if (user.data.length !== 0) {
-      const token = jwt.sign(user.data[0], process.env.REACT_APP_PRIVATE_KEY, {
-        expiresIn: "1d",
-      });
-      localStorage.setItem("currentUser", token);
-      props.history.push("/dashboard");
+      console.log();
+      if (user.data[0].password !== password) alert("Incorrect Password");
+      else {
+        const token = jwt.sign(
+          user.data[0],
+          process.env.REACT_APP_PRIVATE_KEY,
+          {
+            expiresIn: "1d",
+          }
+        );
+        localStorage.setItem("currentUser", token);
+        props.history.push("/dashboard");
+      }
     } else {
       alert("The specified username doesn't exist!");
     }
