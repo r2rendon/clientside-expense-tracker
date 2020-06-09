@@ -5,12 +5,20 @@ export const Transaction = ({ transaction }) => {
   const { deleteTransaction } = useContext(GlobalContext);
   const sign = transaction.amount < 0 ? "-" : "+";
   return (
-    <div>
-      <li>{transaction.description}</li>
-      <span>
-        {sign}${Math.abs(transaction.amount)}
-      </span>
-      <button onClick={() => deleteTransaction(transaction._id)}>x</button>
-    </div>
+    <>
+      <li className="list-group-item">
+        {transaction.description}
+        <br />
+        <span>
+          {sign}${Math.abs(transaction.amount)}
+        </span>
+        <button
+          className="btn btn-danger btn-xs pull-right"
+          onClick={() => deleteTransaction(transaction._id)}
+        >
+          x
+        </button>
+      </li>
+    </>
   );
 };

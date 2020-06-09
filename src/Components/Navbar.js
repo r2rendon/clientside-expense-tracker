@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = (props) => {
+  const [name, setName] = useState("");
+
   const signOut = () => {
     localStorage.removeItem("currentUser");
     props.history.push("/");
   };
+
+  useEffect(() => {
+    const getFirstName = async () => {
+      const user = await axios.post("http://localhost:5000/auth", {
+        token: localStorage.getItem("currentUser"),
+      });
+
+      setName(user.data.fName);
+    };
+
+    getFirstName();
+  }, []);
 
   return (
     <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
@@ -27,12 +42,7 @@ const Navbar = (props) => {
         <ul className="navbar-nav">
           <li className="nav-item">
             <a className="nav-link" href="#">
-              Monthly Tracking
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Profile
+              Welcome {name}!
             </a>
           </li>
           <li className="nav-item">

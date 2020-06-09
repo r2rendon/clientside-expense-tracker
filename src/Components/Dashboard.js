@@ -18,10 +18,16 @@ function Dashboard() {
     <GlobalProvider>
       <Navbar />
       <div className="container" style={{ marginTop: 40 }}>
-        <Balance />
-        <IncomeExpenses />
-        <TransactionList />
-        <AddTransaction />
+        <div className="row">
+          <div className="col-sm-12 col-md-6">
+            <Balance />
+            <IncomeExpenses />
+            <AddTransaction />
+          </div>
+          <div className="col-sm-12 col-md-6">
+            <TransactionList />
+          </div>
+        </div>
       </div>
     </GlobalProvider>
   );

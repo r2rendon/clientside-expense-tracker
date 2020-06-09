@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useState, useEffect } from "react";
+import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 import axios from "axios";
 import jwt from "jsonwebtoken";
@@ -15,15 +15,12 @@ export const GlobalProvider = ({ children }) => {
   //Actions
   async function getTransactions() {
     try {
-      const user = jwt.verify(
-        localStorage.getItem("currentUser"),
-        process.env.REACT_APP_PRIVATE_KEY
-      );
-
+      const user = await axios.post("http://localhost:5000/auth", {
+        token: localStorage.getItem("currentUser"),
+      });
       const apiTransactions = await axios.get(
-        `http://localhost:5000/transactions/${user._id}`
+        `http://localhost:5000/transactions/${user.data._id}`
       );
-      console.log(apiTransactions.data);
       dispatch({
         type: "GET_TRANSACTIONS",
         payload: apiTransactions.data,

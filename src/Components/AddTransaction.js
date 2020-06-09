@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../Context/GlobalState";
-import jwt from "jsonwebtoken";
+import axios from "axios";
 
 export const AddTransaction = () => {
   const [description, setDescription] = useState("");
@@ -8,16 +8,15 @@ export const AddTransaction = () => {
 
   const { addTransaction } = useContext(GlobalContext);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const user = jwt.verify(
-      localStorage.getItem("currentUser"),
-      process.env.REACT_APP_PRIVATE_KEY
-    );
+    const user = await axios.post("http://localhost:5000/auth", {
+      token: localStorage.getItem("currentUser"),
+    });
     const newTransaction = {
       amount: +amount,
       description: description,
-      userId: user._id,
+      userId: user.data._id,
     };
 
     addTransaction(newTransaction);
@@ -29,21 +28,23 @@ export const AddTransaction = () => {
     <div>
       <h3>Add new transaction</h3>
       <form onSubmit={submit}>
-        <div>
+        <div className="form-group">
           <label htmlFor="description">Description</label>
           <input
             type="text"
+            className="form-control col-md-4"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Description"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="amount">
             Amount <br /> (nevative - expense, positive - income){" "}
           </label>
           <input
             type="number"
+            className="form-control col-md-4"
             value={amount}
             onChange={(e) => setAmount(+e.target.value)}
             placeholder="Amount"
