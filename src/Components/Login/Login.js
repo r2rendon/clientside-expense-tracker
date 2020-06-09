@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import "./Login.css";
+import axios from "axios";
+import jwt from "jsonwebtoken";
 
-export const Login = () => {
+export const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const hSubmit = (e) => {
+  const hSubmit = async (e) => {
     e.preventDefault();
+    const user = await axios(`http://localhost:5000/user/${username}`);
+    if (user.data.length !== 0) {
+      const token = jwt.sign(user.data[0], process.env.REACT_APP_PRIVATE_KEY, {
+        expiresIn: "1d",
+      });
+      localStorage.setItem("currentUser", token);
+      props.history.push("/dashboard");
+    } else {
+      alert("The specified username doesn't exist!");
+    }
   };
 
   return (
@@ -14,16 +26,16 @@ export const Login = () => {
       className="container col-md-4 shadow-lg p-3 mb-5 bg-white rounded"
       style={{ marginTop: 150 }}
     >
-      <div class="card">
-        <h2 class="card-header text-center">Login</h2>
-        <div class="card-body">
+      <div className="card">
+        <h2 className="card-header text-center">Login</h2>
+        <div className="card-body">
           <form onSubmit={hSubmit}>
             <p>Welcome to the Expense Tracker Login!</p>
             <div className="form-group">
-              <label for="username">Username</label>
+              <label htmlFor="username">Username</label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="username"
                 placeholder="Username"
                 value={username}
@@ -31,17 +43,17 @@ export const Login = () => {
               />
             </div>
             <div className="form-group">
-              <label for="password">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="pass"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button class="btn btn-primary">Sign In</button>
+            <button className="btn btn-primary">Sign In</button>
           </form>
         </div>
       </div>
