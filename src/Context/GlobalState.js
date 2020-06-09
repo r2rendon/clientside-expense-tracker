@@ -23,6 +23,7 @@ export const GlobalProvider = ({ children }) => {
       const apiTransactions = await axios.get(
         `http://localhost:5000/transactions/${user._id}`
       );
+      console.log(apiTransactions.data);
       dispatch({
         type: "GET_TRANSACTIONS",
         payload: apiTransactions.data,
@@ -37,6 +38,7 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteTransaction(id) {
     try {
+      console.log(id);
       await axios.delete(`http://localhost:5000/transactions/${id}`);
 
       dispatch({
@@ -64,7 +66,6 @@ export const GlobalProvider = ({ children }) => {
     };
 
     try {
-      console.log(transaction);
       const response = await axios.post(
         "http://localhost:5000/transaction",
         transaction,
@@ -73,7 +74,7 @@ export const GlobalProvider = ({ children }) => {
       console.log(response);
       dispatch({
         type: "ADD_TRANSACTION",
-        payload: transaction,
+        payload: response.data,
       });
     } catch (err) {
       dispatch({
