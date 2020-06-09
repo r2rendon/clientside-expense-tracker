@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../Context/GlobalState";
+import jwt from "jsonwebtoken";
 
 export const AddTransaction = () => {
   const [description, setDescription] = useState("");
@@ -9,10 +10,14 @@ export const AddTransaction = () => {
 
   const submit = (e) => {
     e.preventDefault();
+    const user = jwt.verify(
+      localStorage.getItem("currentUser"),
+      process.env.REACT_APP_PRIVATE_KEY
+    );
     const newTransaction = {
-      id: Math.floor(Math.random() * 10000000),
       amount: +amount,
       description: description,
+      userId: user._id,
     };
 
     addTransaction(newTransaction);

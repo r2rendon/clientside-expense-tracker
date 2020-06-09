@@ -23,7 +23,6 @@ export const GlobalProvider = ({ children }) => {
       const apiTransactions = await axios.get(
         `http://localhost:5000/transactions/${user._id}`
       );
-
       dispatch({
         type: "GET_TRANSACTIONS",
         payload: apiTransactions.data,
@@ -31,23 +30,57 @@ export const GlobalProvider = ({ children }) => {
     } catch (err) {
       dispatch({
         type: "GET_TRANSACTIONS",
-        payload: err.response.data.error,
+        payload: err.response.data,
       });
     }
   }
 
-  function deleteTransaction(id) {
+  async function deleteTransaction(id) {
+    try {
+      await axios.delete(`http://localhost:5000/transactions/${id}`);
+
+      dispatch({
+        type: "DELETE_TRANSACTION",
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: "TRANSACTION_ERROR",
+        payload: err.response.data,
+      });
+    }
+
     dispatch({
       type: "DELETE_TRANSACTION",
       payload: id,
     });
   }
 
-  function addTransaction(transaction) {
-    dispatch({
-      type: "ADD_TRANSACTION",
-      payload: transaction,
-    });
+  async function addTransaction(transaction) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      console.log(transaction);
+      const response = await axios.post(
+        "http://localhost:5000/transaction",
+        transaction,
+        config
+      );
+      console.log(response);
+      dispatch({
+        type: "ADD_TRANSACTION",
+        payload: transaction,
+      });
+    } catch (err) {
+      dispatch({
+        type: "TRANSACTION_ERROR",
+        payload: err.response.data,
+      });
+    }
   }
 
   return (
