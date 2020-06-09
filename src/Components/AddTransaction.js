@@ -32,7 +32,7 @@ export const AddTransaction = () => {
           <label htmlFor="description">Description</label>
           <input
             type="text"
-            className="form-control col-md-4"
+            className="form-control col-md-8"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Description"
@@ -44,7 +44,7 @@ export const AddTransaction = () => {
           </label>
           <input
             type="number"
-            className="form-control col-md-4"
+            className="form-control col-md-8"
             value={amount}
             onChange={(e) => setAmount(+e.target.value)}
             placeholder="Amount"
