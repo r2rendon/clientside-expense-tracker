@@ -6,17 +6,17 @@ export const Transaction = ({ transaction }) => {
   const sign = transaction.amount < 0 ? "-" : "+";
   return (
     <>
-      <li className="list-group-item">
-        {transaction.description}
+      <li class="list-group-item">
+        <span>{transaction.description}</span>
         <br />
-        <span>
+        <span style={{ color: sign === "+" ? "#32CD32" : "red" }}>
           {sign}${Math.abs(transaction.amount)}
         </span>
         <button
-          className="btn btn-danger btn-xs pull-right"
+          className="btn btn-outline-dark btn-xs float-right"
           onClick={() => deleteTransaction(transaction._id)}
         >
-          x
+          X
         </button>
       </li>
     </>
