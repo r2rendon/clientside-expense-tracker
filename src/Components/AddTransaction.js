@@ -52,8 +52,8 @@ export const AddTransaction = () => {
           <div style={{ marginTop: 10 }}>
             <BootstrapSwitchButton
               checked={expense}
-              onlabel="Income"
-              offlabel="Expense"
+              onlabel="Expense"
+              offlabel="Income"
               width={123}
               onChange={() => {
                 setExpense(!expense);
