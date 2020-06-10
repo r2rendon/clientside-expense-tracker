@@ -46,11 +46,12 @@ export const AddTransaction = () => {
         <div className="form-group">
           <label htmlFor="amount">Amount</label>
           <input
-            type="number"
+            type="text"
             className="form-control col-md-8"
             value={amount}
             onChange={(e) => setAmount(+e.target.value)}
             placeholder="Amount"
+            pattern="[0-9]+"
           />
           <div style={{ marginTop: 10 }}>
             <BootstrapSwitchButton
