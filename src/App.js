@@ -9,12 +9,14 @@ import { PrivateRoute } from "./PrivateRoute";
 
 //Router
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Register } from "./Components/Login/Register";
 
 export const App = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Login} />
+        <Route exact path="/register" component={Register} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
       </Switch>
     </Router>

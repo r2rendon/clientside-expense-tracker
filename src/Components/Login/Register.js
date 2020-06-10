@@ -1,52 +1,44 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export const Login = (props) => {
+export const Register = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     document.body.classList.add("loginBckg");
   }, []);
 
-  const hSubmit = async (e) => {
+  const goToLogin = (e) => {
     e.preventDefault();
-    const user = await axios(`http://localhost:5000/user/${username}`);
-    if (user.data.length !== 0) {
-      if (user.data[0].password !== password) alert("Incorrect Password");
-      else {
-        const token = await axios.post("http://localhost:5000/auth/tokenify", {
-          user: user.data[0],
-        });
-        localStorage.setItem("currentUser", token.data);
-        props.history.push("/dashboard");
-      }
-    } else {
-      alert("The specified username doesn't exist!");
-    }
-  };
-
-  const goToRegister = (e) => {
-    e.preventDefault();
-    props.history.push("/register");
+    props.history.push("/");
   };
 
   return (
     <div className="container col-md-4 rounded" style={{ marginTop: 150 }}>
       <div className="card">
-        <h2 className="card-header text-center">Login</h2>
+        <h2 className="card-header text-center">Register</h2>
         <div className="card-body">
-          <form onSubmit={hSubmit}>
-            <p>Welcome to the Expense Tracker Login!</p>
+          <form>
             <div className="form-group">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
                 className="form-control"
-                id="username"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="username">Email</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="john@expense.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -60,10 +52,10 @@ export const Login = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <a href="" onClick={goToRegister}>
-              Don't have an account? Sign Up!
+            <a href="" onClick={goToLogin}>
+              Not Here? Back to Login!
             </a>
-            <button className="btn btn-primary w-100">Sign In</button>
+            <button className="btn btn-primary w-100">Sign Up</button>
           </form>
         </div>
       </div>
