@@ -55,6 +55,7 @@ export const Login = (props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <a href="">Don't have an account? Sign Up!</a>
             <button className="btn btn-primary w-100">Sign In</button>
           </form>
         </div>

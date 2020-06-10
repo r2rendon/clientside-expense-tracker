@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../Context/GlobalState";
 import axios from "axios";
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
 
 export const AddTransaction = () => {
   const [description, setDescription] = useState("");
@@ -23,12 +24,6 @@ export const AddTransaction = () => {
     addTransaction(newTransaction);
     setAmount(0);
     setDescription("");
-  };
-
-  const handleChange = (e) => {
-    const item = e.target.name;
-    const isChecked = e.target.checked;
-    setExpense(isChecked);
   };
 
   return (
@@ -54,18 +49,16 @@ export const AddTransaction = () => {
             onChange={(e) => setAmount(+e.target.value)}
             placeholder="Amount"
           />
-          <div class="form-check" style={{ marginTop: 10 }}>
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="defaultCheck1"
+          <div style={{ marginTop: 10 }}>
+            <BootstrapSwitchButton
               checked={expense}
-              onChange={handleChange}
+              onlabel="Income"
+              offlabel="Expense"
+              width={123}
+              onChange={() => {
+                setExpense(!expense);
+              }}
             />
-            <label className="form-check-label" htmlFor="defaultCheck1">
-              Expense
-            </label>
           </div>
         </div>
         <button className="btn btn-outline-primary">Add Transaction</button>
