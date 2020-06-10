@@ -13,6 +13,7 @@ export const Transaction = ({ transaction }) => {
           {sign}${Math.abs(transaction.amount)}
         </span>
         <button
+          style={{ marginBottom: 20 }}
           className="btn btn-outline-dark btn-xs float-right"
           onClick={() => deleteTransaction(transaction._id)}
         >

@@ -29,7 +29,10 @@ export const Register = (props) => {
         balance: 0,
       };
 
-      await axios.post("http://localhost:5000/user", newUser);
+      await axios.post(
+        "https://expense-tracker-challenge.herokuapp.com/user",
+        newUser
+      );
 
       setUsername("");
       setPassword("");

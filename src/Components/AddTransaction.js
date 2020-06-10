@@ -12,9 +12,12 @@ export const AddTransaction = () => {
 
   const submit = async (e) => {
     e.preventDefault();
-    const user = await axios.post("http://localhost:5000/auth", {
-      token: localStorage.getItem("currentUser"),
-    });
+    const user = await axios.post(
+      "https://expense-tracker-challenge.herokuapp.com/auth",
+      {
+        token: localStorage.getItem("currentUser"),
+      }
+    );
     const newTransaction = {
       amount: expense === false ? +amount : -Math.abs(amount),
       description: description,

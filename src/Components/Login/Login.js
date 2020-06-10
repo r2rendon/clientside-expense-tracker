@@ -11,13 +11,18 @@ export const Login = (props) => {
 
   const hSubmit = async (e) => {
     e.preventDefault();
-    const user = await axios(`http://localhost:5000/user/${username}`);
+    const user = await axios(
+      `https://expense-tracker-challenge.herokuapp.com/user/${username}`
+    );
     if (user.data.length !== 0) {
       if (user.data[0].password !== password) alert("Incorrect Password");
       else {
-        const token = await axios.post("http://localhost:5000/auth/tokenify", {
-          user: user.data[0],
-        });
+        const token = await axios.post(
+          "https://expense-tracker-challenge.herokuapp.com/auth/tokenify",
+          {
+            user: user.data[0],
+          }
+        );
         localStorage.setItem("currentUser", token.data);
         props.history.push("/dashboard");
       }

@@ -15,11 +15,14 @@ export const GlobalProvider = ({ children }) => {
   //Actions
   async function getTransactions() {
     try {
-      const user = await axios.post("http://localhost:5000/auth", {
-        token: localStorage.getItem("currentUser"),
-      });
+      const user = await axios.post(
+        "https://expense-tracker-challenge.herokuapp.com/auth",
+        {
+          token: localStorage.getItem("currentUser"),
+        }
+      );
       const apiTransactions = await axios.get(
-        `http://localhost:5000/transactions/${user.data._id}`
+        `https://expense-tracker-challenge.herokuapp.com/transactions/${user.data._id}`
       );
       dispatch({
         type: "GET_TRANSACTIONS",
@@ -36,7 +39,9 @@ export const GlobalProvider = ({ children }) => {
   async function deleteTransaction(id) {
     try {
       console.log(id);
-      await axios.delete(`http://localhost:5000/transactions/${id}`);
+      await axios.delete(
+        `https://expense-tracker-challenge.herokuapp.com/transactions/${id}`
+      );
 
       dispatch({
         type: "DELETE_TRANSACTION",
@@ -64,7 +69,7 @@ export const GlobalProvider = ({ children }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/transaction",
+        "https://expense-tracker-challenge.herokuapp.com/transaction",
         transaction,
         config
       );

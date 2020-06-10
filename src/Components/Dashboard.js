@@ -5,7 +5,6 @@ import Navbar from "./Navbar";
 import { Balance } from "./Balance";
 import { IncomeExpenses } from "./IncomeExpenses";
 import { TransactionList } from "./TransactionList";
-//import { GlobalProvider } from "../Context/GlobalState";
 import { AddTransaction } from "./AddTransaction";
 import { GlobalProvider } from "../Context/GlobalState";
 

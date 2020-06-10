@@ -12,9 +12,12 @@ const Navbar = (props) => {
 
   useEffect(() => {
     const getFirstName = async () => {
-      const user = await axios.post("http://localhost:5000/auth", {
-        token: localStorage.getItem("currentUser"),
-      });
+      const user = await axios.post(
+        "https://expense-tracker-challenge.herokuapp.com/auth",
+        {
+          token: localStorage.getItem("currentUser"),
+        }
+      );
 
       setName(user.data.fName);
     };
